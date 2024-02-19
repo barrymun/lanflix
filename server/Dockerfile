@@ -1,0 +1,22 @@
+FROM node:18
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY tsconfig.json /usr/src/
+COPY common/. /usr/src/common/
+
+COPY server/package*.json /usr/src/app/
+COPY yarn.lock /usr/src/app/
+COPY server/tsconfig.json /usr/src/app/
+
+COPY server/. /usr/src/app/
+
+RUN yarn install
+# RUN yarn install --frozen-lockfile
+
+RUN yarn build
+
+EXPOSE 3001
+
+CMD [ "yarn", "start" ]
