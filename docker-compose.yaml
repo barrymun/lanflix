@@ -7,3 +7,5 @@ services:
       dockerfile: ./server/Dockerfile
     ports:
       - "3001:3001"
+    volumes:
+      - ${MOVIES_DIRECTORY}:/usr/src/movies
