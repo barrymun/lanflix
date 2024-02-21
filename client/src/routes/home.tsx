@@ -1,5 +1,7 @@
 import { Box, Card, Text } from "@radix-ui/themes";
 
+import { VideoPlayer } from "components";
+
 const Home = () => {
   return (
     <>
@@ -8,10 +10,7 @@ const Home = () => {
           <Text>Home</Text>
         </Card>
       </Box>
-      <video controls>
-        <source src="http://localhost:3001/stream/test" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <VideoPlayer />
     </>
   );
 };
