@@ -42,9 +42,8 @@ import express from "express";
 
       // // Stream the movie to the client
       const stream = createReadStream(moviePath);
-      console.log({ stream });
-      // stream.pipe(res);
-      res.status(200).send("OK");
+      stream.pipe(res);
+      // res.status(200).send("OK");
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
