@@ -26,10 +26,9 @@ import express from "express";
   app.get("/stream/:filename", (req, res) => {
     try {
       const { filename } = req.params;
-      console.log({ filename });
       // const filePath = join(__dirname, "/Users/barrymun/Documents/movies", filename);
       const filePath = join("/usr/src/movies", "Alien DC (1979) [1080p]/Alien.Directors.Cut.1979.1080p.mp4");
-      console.log({ filePath });
+      console.log({ filename, filePath });
 
       // Check if the file exists
       // const fileExists = existsSync(filePath);
