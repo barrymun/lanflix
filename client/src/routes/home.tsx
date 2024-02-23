@@ -1,9 +1,8 @@
 import { Box, Card, Text } from "@radix-ui/themes";
 import { useEffect } from "react";
 
-import { getMedia } from "utils";
-
 // import { VideoPlayer } from "components";
+import { getMedia } from "utils";
 
 const Home = () => {
   const fetchMedia = async () => {

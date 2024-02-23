@@ -1,4 +1,4 @@
-import { GetMediaResponse } from "utils";
+import { GetMediaResponse } from "common";
 
 const baseUrl = process.env.REACT_APP_API_URL as string;
 
