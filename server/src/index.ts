@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 
+import { getMedia } from "routes/media";
 import { streamFile } from "routes/stream";
 
 (() => {
@@ -23,6 +24,7 @@ import { streamFile } from "routes/stream";
 
   app.use(cors(corsOptions));
 
+  app.get("/media", getMedia);
   app.get("/stream/:filename", streamFile);
 
   server.listen(3001);

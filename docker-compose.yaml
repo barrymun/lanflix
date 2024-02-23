@@ -8,4 +8,4 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - ${MOVIES_DIRECTORY}:/usr/src/movies
+      - ${MEDIA_DIRECTORY}:/usr/src/media

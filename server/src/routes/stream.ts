@@ -3,6 +3,7 @@ import { join } from "path";
 
 import { Response } from "express";
 
+import { mediaPath } from "utils/consts";
 import { CustomReq } from "utils/types";
 
 interface ReqBody {}
@@ -11,7 +12,7 @@ export function streamFile(req: CustomReq<ReqBody>, res: Response) {
   try {
     const { filename } = req.params;
     // const filePath = join(__dirname, "/Users/barrymun/Documents/movies", filename);
-    const filePath = join("/usr/src/movies", "Alien DC (1979) [1080p]/Alien.Directors.Cut.1979.1080p.mp4");
+    const filePath = join(mediaPath, "Alien DC (1979) [1080p]/Alien.Directors.Cut.1979.1080p.mp4");
     console.log({ filename, filePath });
 
     // Check if the file exists
