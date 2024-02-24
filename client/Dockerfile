@@ -14,7 +14,7 @@ COPY client/. /usr/src/app/
 # this just overrides the default .eslintrc.json file, but need a better solution
 COPY .eslintrc.json /usr/src/app/
 
-RUN yarn install --verbose
+RUN yarn install
 
 RUN yarn build
 
