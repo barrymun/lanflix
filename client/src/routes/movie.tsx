@@ -1,3 +1,4 @@
+import { Text } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const Movie = () => {
 
   return (
     <>
+      <Text>{moviePath ?? ""}</Text>
       <VideoPlayer filepath={moviePath} />
     </>
   );
