@@ -16,5 +16,3 @@ services:
       dockerfile: ./client/Dockerfile
     ports:
       - "6969:6969"
-    environment:
-      - REACT_APP_API_URL=http://localhost:3001
