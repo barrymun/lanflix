@@ -1,4 +1,3 @@
-import { grayDark } from "@radix-ui/colors";
 import { GitHubLogoIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Box, IconButton, Text, Tooltip } from "@radix-ui/themes";
 import { FC, useMemo } from "react";
@@ -14,7 +13,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ children }) => {
   const { appearance, setAppearance } = useTheme();
 
-  const bgColor = useMemo(() => (appearance === "dark" ? `bg-[${grayDark.gray1}]` : "bg-[#ffffff]"), [appearance]);
+  const bgColor = useMemo(() => (appearance === "dark" ? `bg-dark-mode-gray` : "bg-[#ffffff]"), [appearance]);
 
   const handleGitHubClick = () => {
     window.open(repoUrl, "_blank", "noopener noreferrer");

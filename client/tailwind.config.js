@@ -8,6 +8,9 @@ module.exports = {
       screens: {
         'xs': '0px',
       },
+      colors: {
+        'dark-mode-gray': '#111111',
+      },
     },
   },
   plugins: [],
