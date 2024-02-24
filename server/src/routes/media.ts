@@ -33,7 +33,6 @@ function findMovies(dir: string): GetMediaResponse["movies"] {
 export function getMedia(_req: CustomReq<ReqBody>, res: Response<GetMediaResponse | ErrorResponse>) {
   try {
     const movies = findMovies(mediaPath);
-    console.log({ movies });
     res.json({ movies });
   } catch (error) {
     console.error(error);

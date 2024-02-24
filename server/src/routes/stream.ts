@@ -1,29 +1,24 @@
-import { createReadStream, statSync } from "fs";
-import { join } from "path";
+import { createReadStream, existsSync, statSync } from "fs";
 
 import { Response } from "express";
 
-import { mediaPath } from "utils/consts";
 import { CustomReq } from "utils/types";
 
 interface ReqBody {}
 
 export function streamFile(req: CustomReq<ReqBody>, res: Response) {
   try {
-    const { filename } = req.params;
-    // const filePath = join(__dirname, "/Users/barrymun/Documents/movies", filename);
-    const filePath = join(mediaPath, "Alien DC (1979) [1080p]/Alien.Directors.Cut.1979.1080p.mp4");
-    console.log({ filename, filePath });
+    const { filepath } = req.params;
 
-    // Check if the file exists
-    // const fileExists = existsSync(filePath);
-    // if (!fileExists) {
-    //   return res.status(404).json({ error: "File not found" });
-    // }
+    const fileExists = existsSync(decodeURIComponent(filepath));
+    console.log({ filepath, fileExists });
+    if (!fileExists) {
+      res.status(404).json({ error: "File not found" });
+      return;
+    }
 
     const range = req.headers.range;
-    console.log({ range });
-    const fileSize = statSync(filePath).size;
+    const fileSize = statSync(filepath).size;
     let start = 0;
     let end = fileSize - 1;
     if (range) {
@@ -37,7 +32,7 @@ export function streamFile(req: CustomReq<ReqBody>, res: Response) {
       "Content-Length": end - start + 1,
       "Content-Range": `bytes ${start}-${end}/${fileSize}`,
     });
-    const stream = createReadStream(filePath, { start, end });
+    const stream = createReadStream(filepath, { start, end });
     stream.pipe(res);
   } catch (error) {
     console.error(error);

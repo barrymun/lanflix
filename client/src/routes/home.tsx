@@ -1,8 +1,8 @@
 import { Box, Card, Text } from "@radix-ui/themes";
 import { GetMediaResponse } from "common";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-// import { VideoPlayer } from "components";
 import { getMedia } from "utils";
 
 const Home = () => {
@@ -20,11 +20,12 @@ const Home = () => {
 
   return (
     <>
-      {/* <VideoPlayer /> */}
       <Box className="p-4 flex flex-wrap gap-4">
         {movies.map((movie, index) => (
           <Card key={index} className="w-48">
-            <Text>{movie.name}</Text>
+            <Text>
+              <Link to={`/movies/${encodeURIComponent(movie.path)}`}>{movie.name}</Link>
+            </Text>
           </Card>
         ))}
       </Box>
