@@ -1,0 +1,11 @@
+version: '3'
+
+services:  
+  server:
+    build:
+      context: ./
+      dockerfile: ./server/Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ${MEDIA_DIRECTORY}:/usr/src/media

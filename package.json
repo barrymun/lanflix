@@ -12,6 +12,7 @@
     "lint": "yarn workspace server lint",
     "prepare": "husky",
     "common-build": "yarn workspace common build",
+    "docker-dev-up": "yarn common-build && docker-compose --env-file .env -f docker-compose-dev.yml up -d --build",
     "docker-up": "yarn common-build && docker-compose --env-file .env up -d --build",
     "docker-down": "docker-compose down",
     "docker-destroy": "docker-compose down -v"
