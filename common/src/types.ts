@@ -2,8 +2,9 @@ export interface ErrorResponse {
   error: string;
 }
 export interface GetMediaResponse {
-  movies: {
+  contents: {
     name: string;
     path: string;
+    type: "file" | "directory";
   }[];
 }

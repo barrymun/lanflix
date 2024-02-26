@@ -4,13 +4,12 @@ import { join } from "path";
 import { ErrorResponse, GetMediaResponse } from "common";
 import { Response } from "express";
 
-import { mediaPath } from "utils/consts";
 import { CustomReq } from "utils/types";
 
 interface ReqBody {}
 
-function findMovies(dir: string): GetMediaResponse["movies"] {
-  let movies: GetMediaResponse["movies"] = [];
+function findContents(dir: string): GetMediaResponse["contents"] {
+  const contents: GetMediaResponse["contents"] = [];
   const files = readdirSync(dir);
 
   files.forEach((file) => {
@@ -18,22 +17,29 @@ function findMovies(dir: string): GetMediaResponse["movies"] {
     const stat = statSync(filePath);
 
     if (stat.isDirectory()) {
-      movies = movies.concat(findMovies(filePath));
-    } else if (file.endsWith(".mp4")) {
-      movies.push({
+      // contents = contents.concat(findContents(filePath));
+      contents.push({
         name: file,
         path: filePath,
+        type: "directory",
+      });
+    } else if (file.endsWith(".mp4")) {
+      contents.push({
+        name: file,
+        path: filePath,
+        type: "file",
       });
     }
   });
 
-  return movies;
+  return contents;
 }
 
-export function getMedia(_req: CustomReq<ReqBody>, res: Response<GetMediaResponse | ErrorResponse>) {
+export function getMedia(req: CustomReq<ReqBody>, res: Response<GetMediaResponse | ErrorResponse>) {
   try {
-    const movies = findMovies(mediaPath);
-    res.json({ movies });
+    const { filepath } = req.params;
+    const contents = findContents(filepath);
+    res.json({ contents });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

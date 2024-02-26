@@ -24,7 +24,7 @@ import { streamFile } from "routes/stream";
 
   app.use(cors(corsOptions));
 
-  app.get("/media", getMedia);
+  app.get("/media/:filepath", getMedia);
   app.get("/stream/:filepath", streamFile);
 
   server.listen(3001);

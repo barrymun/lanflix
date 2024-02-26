@@ -11,6 +11,12 @@ module.exports = {
       colors: {
         'dark-mode-gray': '#111111',
       },
+      height: {
+        'side-bar': 'calc(100vh - 6rem)',
+      },
+      width: {
+        'side-bar': '16rem',
+      }
     },
   },
   plugins: [],
