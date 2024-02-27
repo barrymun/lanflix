@@ -1,32 +1,31 @@
 import { readdirSync, statSync } from "fs";
 import { join } from "path";
 
-import { ErrorResponse, GetMediaResponse } from "common";
+import { ErrorResponse, GetMediaResponse, mediaPath } from "common";
 import { Response } from "express";
 
 import { CustomReq } from "utils/types";
 
 interface ReqBody {}
 
-function findContents(dir: string): GetMediaResponse["contents"] {
+function findContents(dir: string | undefined = mediaPath): GetMediaResponse["contents"] {
   const contents: GetMediaResponse["contents"] = [];
-  const files = readdirSync(dir);
+  const completePath = dir.includes(mediaPath) ? dir : `${mediaPath}${dir}`;
+  const files = readdirSync(completePath);
 
   files.forEach((file) => {
-    const filePath = join(dir, file);
+    const filePath = join(completePath, file);
     const stat = statSync(filePath);
-
     if (stat.isDirectory()) {
-      // contents = contents.concat(findContents(filePath));
       contents.push({
         name: file,
-        path: filePath,
+        path: filePath.replace(mediaPath, ""),
         type: "directory",
       });
     } else if (file.endsWith(".mp4")) {
       contents.push({
         name: file,
-        path: filePath,
+        path: filePath.replace(mediaPath, ""),
         type: "file",
       });
     }

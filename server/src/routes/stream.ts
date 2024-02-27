@@ -1,5 +1,6 @@
 import { createReadStream, existsSync, statSync } from "fs";
 
+import { mediaPath } from "common";
 import { Response } from "express";
 
 import { CustomReq } from "utils/types";
@@ -9,16 +10,17 @@ interface ReqBody {}
 export function streamFile(req: CustomReq<ReqBody>, res: Response) {
   try {
     const { filepath } = req.params;
-
-    const fileExists = existsSync(decodeURIComponent(filepath));
-    console.log({ filepath, fileExists });
+    const decodedFilePath = decodeURIComponent(filepath);
+    const completePath = decodedFilePath.includes(mediaPath) ? decodedFilePath : `${mediaPath}${decodedFilePath}`;
+    const fileExists = existsSync(decodeURIComponent(completePath));
+    console.log({ completePath, fileExists });
     if (!fileExists) {
       res.status(404).json({ error: "File not found" });
       return;
     }
 
     const range = req.headers.range;
-    const fileSize = statSync(filepath).size;
+    const fileSize = statSync(completePath).size;
     let start = 0;
     let end = fileSize - 1;
     if (range) {
@@ -32,7 +34,7 @@ export function streamFile(req: CustomReq<ReqBody>, res: Response) {
       "Content-Length": end - start + 1,
       "Content-Range": `bytes ${start}-${end}/${fileSize}`,
     });
-    const stream = createReadStream(filepath, { start, end });
+    const stream = createReadStream(completePath, { start, end });
     stream.pipe(res);
   } catch (error) {
     console.error(error);

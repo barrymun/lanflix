@@ -1,6 +1,6 @@
 import { ArchiveIcon } from "@radix-ui/react-icons";
 import { Box, Card, Text } from "@radix-ui/themes";
-import { GetMediaResponse, mediaPath } from "common";
+import { GetMediaResponse } from "common";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import { getMedia, sortContentsByType } from "utils";
 const Home = () => {
   const { path } = useParams();
 
-  const [filepath, setFilepath] = useState<string>(mediaPath);
+  const [filepath, setFilepath] = useState<string>("");
   const [files, setFiles] = useState<GetMediaResponse["contents"]>([]);
   const [directories, setDirectories] = useState<GetMediaResponse["contents"]>([]);
 
