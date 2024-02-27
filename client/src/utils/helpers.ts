@@ -16,3 +16,8 @@ export function sortContentsByType(contents: GetMediaResponse["contents"]) {
 
   return sortedContents;
 }
+
+export function convertPathToBreadcrumbs(path: string): string[] {
+  const decodedPath = decodeURIComponent(path);
+  return decodedPath.split("/").filter((part) => part.trim() !== "");
+}

@@ -4,22 +4,22 @@ import { GetMediaResponse } from "common";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { getMedia, sortContentsByType } from "utils";
+import { convertPathToBreadcrumbs, getMedia, sortContentsByType } from "utils";
 
 const Home = () => {
   const { path } = useParams();
 
-  const [filepath, setFilepath] = useState<string>("");
   const [files, setFiles] = useState<GetMediaResponse["contents"]>([]);
   const [directories, setDirectories] = useState<GetMediaResponse["contents"]>([]);
+  const [breadcrumbs, setBreadcrumbs] = useState<string[]>([]);
 
   const fetchMedia = async () => {
-    console.log(path);
-    const r = await getMedia(path ?? filepath);
-    console.log(r);
+    const r = await getMedia(path ?? "");
+    console.log(r.contents);
     const { files, directories } = sortContentsByType(r.contents);
     setFiles(files);
     setDirectories(directories);
+    setBreadcrumbs(convertPathToBreadcrumbs(path ?? ""));
   };
 
   useEffect(() => {
@@ -52,6 +52,18 @@ const Home = () => {
         <Box>
           <Box className="pb-4">
             <Text className="text-3xl">Movies</Text>
+          </Box>
+          <Box className="pb-4">
+            {breadcrumbs.map((crumb, index) => (
+              <span key={index}>
+                {index < breadcrumbs.length - 1 ? (
+                  <Link to={`/${encodeURIComponent(`/${crumb}`)}`}>{crumb}</Link>
+                ) : (
+                  <span>{crumb}</span>
+                )}
+                {index < breadcrumbs.length - 1 && <span> / </span>}
+              </span>
+            ))}
           </Box>
           <Box className="flex flex-wrap gap-4">
             {files.map((file, index) => (
