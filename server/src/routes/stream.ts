@@ -7,7 +7,7 @@ import { CustomReq } from "utils/types";
 
 interface ReqBody {}
 
-export function streamFile(req: CustomReq<ReqBody>, res: Response) {
+export async function streamFile(req: CustomReq<ReqBody>, res: Response) {
   try {
     const { filepath } = req.params;
     const decodedFilePath = decodeURIComponent(filepath);
