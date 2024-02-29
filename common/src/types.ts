@@ -6,6 +6,7 @@ export interface GetMediaResponse {
     name: string;
     path: string;
     type: "file" | "directory";
+    poster?: string;
   }[];
 }
 export interface OMDbApiResponseData {
@@ -35,3 +36,4 @@ export interface OMDbApiResponseData {
   Website: string;
   Response: string;
 }
+export type PosterType = "jpg" | "jpeg" | "png";

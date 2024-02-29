@@ -4,6 +4,7 @@ import { GetMediaResponse } from "common";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+import { Poster } from "components";
 import { convertPathToBreadcrumbs, getMedia, sortContentsByType } from "utils";
 
 const Home = () => {
@@ -68,6 +69,7 @@ const Home = () => {
           <Box className="flex flex-wrap gap-4">
             {files.map((file, index) => (
               <Card key={index} className="w-48">
+                <Poster filepath={file.path} />
                 <Text>
                   <Link to={`/movies/${encodeURIComponent(file.path)}`}>{file.name}</Link>
                 </Text>
