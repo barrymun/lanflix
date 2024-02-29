@@ -1,20 +1,18 @@
 import { createContext, useContext, useMemo } from "react";
 
-import { LocalStorageKeys } from "utils";
-
 interface LocalStorageProviderProps {
   children: React.ReactNode;
 }
 
 const LocalStorageContext = createContext(
   {} as {
-    getValue(key: LocalStorageKeys): string | null;
+    getValue(key: string): string | null;
     setValue(key: string, value: string): void;
   },
 );
 
 const LocalStorageProvider = ({ children }: LocalStorageProviderProps) => {
-  const getValue = (key: LocalStorageKeys) => {
+  const getValue = (key: string) => {
     return localStorage.getItem(key);
   };
 
