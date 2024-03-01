@@ -9,6 +9,7 @@
     "common"
   ],
   "scripts": {
+    "setup": "node setup.js",
     "lint": "yarn workspace server lint",
     "prepare": "husky",
     "common-build": "yarn workspace common build",
