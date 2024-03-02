@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18 as node
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -18,6 +18,13 @@ RUN yarn install
 
 RUN yarn build
 
-EXPOSE 6969
+# use Nginx as the production server
+FROM nginx:alpine
+# copy the custom Nginx configuration file to the container
+COPY client/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+# copy the built React app to Nginx's web server directory
+COPY --from=node /usr/src/app/build /usr/share/nginx/html
 
-CMD [ "yarn", "start" ]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

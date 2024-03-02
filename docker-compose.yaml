@@ -15,4 +15,6 @@ services:
       context: ./
       dockerfile: ./client/Dockerfile
     ports:
-      - "6969:6969"
+      - "6969:80"
+    depends_on:
+      - server

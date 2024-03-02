@@ -16,5 +16,7 @@ services:
       dockerfile: ./client/Dockerfile.dev
     ports:
       - "6969:6969"
+    depends_on:
+      - server
     volumes:
       - ./client/src:/usr/src/app/src:ro
