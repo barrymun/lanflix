@@ -16,8 +16,6 @@ COPY .eslintrc.json /usr/src/app/
 
 RUN yarn install
 
-RUN yarn build
-
 EXPOSE 6969
 
 CMD [ "yarn", "start" ]

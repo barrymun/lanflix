@@ -9,3 +9,12 @@ services:
       - "3001:3001"
     volumes:
       - ${MEDIA_DIRECTORY}:/usr/src/media
+  
+  client:
+    build:
+      context: ./
+      dockerfile: ./client/Dockerfile.dev
+    ports:
+      - "6969:6969"
+    volumes:
+      - ./client/src:/usr/src/app/src:ro
