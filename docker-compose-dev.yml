@@ -4,11 +4,12 @@ services:
   server:
     build:
       context: ./
-      dockerfile: ./server/Dockerfile
+      dockerfile: ./server/Dockerfile.dev
     ports:
       - "3001:3001"
     volumes:
       - ${MEDIA_DIRECTORY}:/usr/src/media
+      - ./server/src:/usr/src/app/src:ro
   
   client:
     build:
