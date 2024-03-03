@@ -1,10 +1,10 @@
-import { GitHubLogoIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon, HamburgerMenuIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Box, IconButton, Text, Tooltip } from "@radix-ui/themes";
 import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 
-import { useTheme } from "hooks";
-import { repoUrl } from "utils";
+import { useSideMenu, useTheme } from "hooks";
+import { getBgColor, repoUrl } from "utils";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -12,8 +12,9 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ children }) => {
   const { appearance, setAppearance } = useTheme();
+  const { open, setOpen } = useSideMenu();
 
-  const bgColor = useMemo(() => (appearance === "dark" ? `bg-dark-mode-gray` : "bg-[#ffffff]"), [appearance]);
+  const bgColor = useMemo(() => getBgColor(appearance), [appearance]);
 
   const handleGitHubClick = () => {
     window.open(repoUrl, "_blank", "noopener noreferrer");
@@ -23,9 +24,13 @@ const Header: FC<HeaderProps> = ({ children }) => {
     setAppearance(appearance === "dark" ? "light" : "dark");
   };
 
+  const handleMenuClick = () => {
+    setOpen(!open);
+  };
+
   return (
     <>
-      <Box className={`fixed top-0 z-10 w-full shadow-lg ${bgColor}`}>
+      <Box className={`fixed top-0 z-10 w-full h-header shadow-lg ${bgColor}`}>
         <header className="sm:p-4 xs:p-2">
           <Box className="flex items-center justify-between">
             <Box>
@@ -47,6 +52,11 @@ const Header: FC<HeaderProps> = ({ children }) => {
                     {appearance === "dark" ? <MoonIcon /> : <SunIcon />}
                   </IconButton>
                 </Tooltip>
+              </Box>
+              <Box className="md:hidden">
+                <IconButton onClick={handleMenuClick} className="hover:cursor-pointer">
+                  <HamburgerMenuIcon />
+                </IconButton>
               </Box>
             </Box>
           </Box>

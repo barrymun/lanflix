@@ -1,5 +1,7 @@
 import { GetMediaResponse } from "common";
 
+import { Appearance } from "utils/types";
+
 export function sortContentsByType(contents: GetMediaResponse["contents"]) {
   const sortedContents: { files: GetMediaResponse["contents"]; directories: GetMediaResponse["contents"] } = {
     files: [],
@@ -20,4 +22,8 @@ export function sortContentsByType(contents: GetMediaResponse["contents"]) {
 export function convertPathToBreadcrumbs(path: string): string[] {
   const decodedPath = decodeURIComponent(path);
   return decodedPath.split("/").filter((part) => part.trim() !== "");
+}
+
+export function getBgColor(appearance: Appearance) {
+  return appearance === "dark" ? `bg-dark-mode-gray` : "bg-[#ffffff]";
 }

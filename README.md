@@ -8,3 +8,5 @@ yarn run setup
 - [ ] i18n
 - [ ] better use of docker caching so that yarn install doesn't install all the packages again
 - [ ] support subtitles
+- [ ] better support for mobile (with hamburger menu)
+- [ ] editable directories and files

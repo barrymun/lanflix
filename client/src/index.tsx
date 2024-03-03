@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "App";
 import { Header } from "components";
-import { LocalStorageProvider, ThemeProvider } from "hooks";
+import { LocalStorageProvider, SideMenuProvider, ThemeProvider } from "hooks";
 import reportWebVitals from "reportWebVitals";
 
 import "@radix-ui/themes/styles.css";
@@ -16,9 +16,11 @@ root.render(
     <BrowserRouter>
       <LocalStorageProvider>
         <ThemeProvider>
-          <Header>
-            <App />
-          </Header>
+          <SideMenuProvider>
+            <Header>
+              <App />
+            </Header>
+          </SideMenuProvider>
         </ThemeProvider>
       </LocalStorageProvider>
     </BrowserRouter>

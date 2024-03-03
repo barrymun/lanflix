@@ -12,10 +12,11 @@ module.exports = {
         'dark-mode-gray': '#111111',
       },
       height: {
-        'side-bar': 'calc(100vh - 6rem)',
+        'header': '3.25rem',
+        'side-menu': 'calc(100vh - 6rem)',
       },
       width: {
-        'side-bar': '16rem',
+        'side-menu': '16rem',
       }
     },
   },

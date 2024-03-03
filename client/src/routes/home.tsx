@@ -1,18 +1,23 @@
 import { ArchiveIcon } from "@radix-ui/react-icons";
 import { Box, Card, Text } from "@radix-ui/themes";
 import { GetMediaResponse } from "common";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { Poster } from "components";
-import { convertPathToBreadcrumbs, getMedia, sortContentsByType } from "utils";
+import { useSideMenu, useTheme } from "hooks";
+import { convertPathToBreadcrumbs, getBgColor, getMedia, sortContentsByType } from "utils";
 
 const Home = () => {
+  const { appearance } = useTheme();
+  const { open: menuOpen } = useSideMenu();
   const { path } = useParams();
 
   const [files, setFiles] = useState<GetMediaResponse["contents"]>([]);
   const [directories, setDirectories] = useState<GetMediaResponse["contents"]>([]);
   const [breadcrumbs, setBreadcrumbs] = useState<string[]>([]);
+
+  const bgColor = useMemo(() => getBgColor(appearance), [appearance]);
 
   const fetchMedia = async () => {
     const r = await getMedia(path ?? "");
@@ -30,7 +35,11 @@ const Home = () => {
   return (
     <Box className="p-4">
       <Box className="flex gap-4">
-        <Box className="h-side-bar w-side-bar overflow-y-scroll">
+        {/* directories */}
+        {/* side menu small screens */}
+        {menuOpen && <Box className={`fixed top-[3.25rem] left-0 w-full h-full z-10 ${bgColor} md:hidden`}>HERE</Box>}
+        {/* side menu large screens */}
+        <Box className="h-side-menu w-side-menu overflow-y-scroll hidden md:block">
           <Box className="pb-4">
             <Text className="text-3xl">Directories</Text>
           </Box>
@@ -49,7 +58,7 @@ const Home = () => {
             ))}
           </Box>
         </Box>
-
+        {/* movies */}
         <Box>
           <Box className="pb-4">
             <Text className="text-3xl">Movies</Text>
