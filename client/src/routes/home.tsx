@@ -1,17 +1,18 @@
 import { ArchiveIcon } from "@radix-ui/react-icons";
 import { Box, Card, Text } from "@radix-ui/themes";
 import { GetMediaResponse } from "common";
-import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { FC, useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { Poster } from "components";
 import { useSideMenu, useTheme } from "hooks";
 import { convertPathToBreadcrumbs, getBgColor, getMedia, sortContentsByType } from "utils";
 
 const Home = () => {
-  const { appearance } = useTheme();
-  const { open: menuOpen } = useSideMenu();
+  const navigate = useNavigate();
   const { path } = useParams();
+  const { appearance } = useTheme();
+  const { open: menuOpen, setOpen } = useSideMenu();
 
   const [files, setFiles] = useState<GetMediaResponse["contents"]>([]);
   const [directories, setDirectories] = useState<GetMediaResponse["contents"]>([]);
@@ -32,31 +33,62 @@ const Home = () => {
     fetchMedia();
   }, [path]);
 
+  const Directories: FC = () => {
+    return (
+      <>
+        <Box className="pb-4">
+          <Text className="text-3xl">Directories</Text>
+        </Box>
+        <Box className="flex flex-col gap-2">
+          {directories.map((directory, index) => (
+            <Card key={index} className="w-100">
+              <Box className="flex gap-2 items-center">
+                <Box>
+                  <ArchiveIcon />
+                </Box>
+                <Text
+                  onClick={() => {
+                    navigate(`/${encodeURIComponent(directory.path)}`);
+                    setOpen(false);
+                  }}
+                >
+                  {directory.name}
+                </Text>
+              </Box>
+            </Card>
+          ))}
+        </Box>
+      </>
+    );
+  };
+
   return (
     <Box className="p-4">
       <Box className="flex gap-4">
         {/* directories */}
         {/* side menu small screens */}
-        {menuOpen && <Box className={`fixed top-[3.25rem] left-0 w-full h-full z-10 ${bgColor} md:hidden`}>HERE</Box>}
+        {menuOpen && (
+          <Box
+            className={`
+              fixed 
+              top-16
+              left-0
+              w-full 
+              h-[calc(100%-4rem)] 
+              overflow-y-scroll 
+              z-10 
+              ${bgColor}
+              md:hidden
+            `}
+          >
+            <Box className="p-4">
+              <Directories />
+            </Box>
+          </Box>
+        )}
         {/* side menu large screens */}
         <Box className="h-side-menu w-side-menu overflow-y-scroll hidden md:block">
-          <Box className="pb-4">
-            <Text className="text-3xl">Directories</Text>
-          </Box>
-          <Box className="flex flex-col gap-2">
-            {directories.map((directory, index) => (
-              <Card key={index} className="w-100">
-                <Box className="flex gap-2 items-center">
-                  <Box>
-                    <ArchiveIcon />
-                  </Box>
-                  <Text>
-                    <Link to={`/${encodeURIComponent(directory.path)}`}>{directory.name}</Link>
-                  </Text>
-                </Box>
-              </Card>
-            ))}
-          </Box>
+          <Directories />
         </Box>
         {/* movies */}
         <Box>

@@ -30,7 +30,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
 
   return (
     <>
-      <Box className={`fixed top-0 z-10 w-full h-header shadow-lg ${bgColor}`}>
+      <Box className={`fixed top-0 z-20 w-full shadow-lg ${bgColor}`}>
         <header className="sm:p-4 xs:p-2">
           <Box className="flex items-center justify-between">
             <Box>
