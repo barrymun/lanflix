@@ -47,6 +47,7 @@ const Home = () => {
                   <ArchiveIcon />
                 </Box>
                 <Text
+                  className="hover:cursor-pointer"
                   onClick={() => {
                     navigate(`/${encodeURIComponent(directory.path)}`);
                     setOpen(false);
