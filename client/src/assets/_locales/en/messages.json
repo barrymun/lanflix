@@ -1,0 +1,15 @@
+{
+  "name": "Lanflix",
+  "header": {
+    "view-github": "View GitHub",
+    "toggle-theme": "Toggle theme"
+  },
+  "home": {
+    "directories": "Directories",
+    "movies": "Movies"
+  },
+  "video-player": {
+    "loading": "Loading",
+    "no-video-support": "Your browser does not support the video tag."
+  }
+}

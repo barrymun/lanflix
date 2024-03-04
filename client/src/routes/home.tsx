@@ -2,6 +2,7 @@ import { ArchiveIcon } from "@radix-ui/react-icons";
 import { Box, Card, Text } from "@radix-ui/themes";
 import { GetMediaResponse } from "common";
 import { FC, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { Poster } from "components";
@@ -9,6 +10,7 @@ import { useSideMenu, useTheme } from "hooks";
 import { convertPathToBreadcrumbs, getBgColor, getMedia, sortContentsByType } from "utils";
 
 const Home = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { path } = useParams();
   const { appearance } = useTheme();
@@ -37,7 +39,7 @@ const Home = () => {
     return (
       <>
         <Box className="pb-4">
-          <Text className="text-3xl">Directories</Text>
+          <Text className="text-3xl">{t("home.directories")}</Text>
         </Box>
         <Box className="flex flex-col gap-2">
           {directories.map((directory, index) => (
@@ -94,7 +96,7 @@ const Home = () => {
         {/* movies */}
         <Box>
           <Box className="pb-4">
-            <Text className="text-3xl">Movies</Text>
+            <Text className="text-3xl">{t("home.movies")}</Text>
           </Box>
           <Box className="pb-4">
             {breadcrumbs.map((crumb, index) => (

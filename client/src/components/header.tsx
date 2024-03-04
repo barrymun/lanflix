@@ -1,6 +1,7 @@
 import { GitHubLogoIcon, HamburgerMenuIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Box, IconButton, Text, Tooltip } from "@radix-ui/themes";
 import { FC, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { useSideMenu, useTheme } from "hooks";
@@ -11,6 +12,7 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ children }) => {
+  const { t } = useTranslation();
   const { appearance, setAppearance } = useTheme();
   const { open, setOpen } = useSideMenu();
 
@@ -35,19 +37,19 @@ const Header: FC<HeaderProps> = ({ children }) => {
           <Box className="flex items-center justify-between">
             <Box>
               <Text className="text-3xl">
-                <Link to="/">Lanflix</Link>
+                <Link to="/">{t("name")}</Link>
               </Text>
             </Box>
             <Box className="flex justify-end gap-2">
               <Box>
-                <Tooltip content="View GitHub" side="bottom">
+                <Tooltip content={t("header.view-github")} side="bottom">
                   <IconButton onClick={handleGitHubClick} className="hover:cursor-pointer">
                     <GitHubLogoIcon />
                   </IconButton>
                 </Tooltip>
               </Box>
               <Box>
-                <Tooltip content="Toggle theme" side="bottom">
+                <Tooltip content={t("header.toggle-theme")} side="bottom">
                   <IconButton onClick={handleAppearanceClick} className="hover:cursor-pointer">
                     {appearance === "dark" ? <MoonIcon /> : <SunIcon />}
                   </IconButton>

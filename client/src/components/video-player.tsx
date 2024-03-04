@@ -1,5 +1,6 @@
 import { Box, Text } from "@radix-ui/themes";
 import { FC, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useLocalStorage } from "hooks";
 import { baseUrl } from "utils";
@@ -9,6 +10,8 @@ interface VideoPlayerProps {
 }
 
 const VideoPlayer: FC<VideoPlayerProps> = ({ filepath }) => {
+  const { t } = useTranslation();
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const { getValue, setValue } = useLocalStorage();
@@ -24,7 +27,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ filepath }) => {
   }, [filepath]);
 
   if (!filepath) {
-    return <Text>Loading</Text>;
+    return <Text>{t("video-player.loading")}</Text>;
   }
 
   const handleTimeUpdate = () => {
@@ -38,7 +41,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ filepath }) => {
     <Box>
       <video ref={videoRef} controls controlsList="nodownload" onTimeUpdate={handleTimeUpdate}>
         <source src={`${baseUrl}/stream/${encodeURIComponent(filepath)}`} type="video/mp4" />
-        <Text>Your browser does not support the video tag.</Text>
+        <Text>{t("video-player.no-video-support")}</Text>
       </video>
     </Box>
   );
