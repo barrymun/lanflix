@@ -5,17 +5,15 @@ A full-stack video streaming app that is designed to run inside a docker contain
 ## Screenshots (mobile)
 
 ### Directories found within your provided root directory:
-![directories](screenshots/1-directories.png)
-
+<img src="screenshots/1-directories.png" width="200" />
 <br/>
 
 ### Directories dark mode:
-![directories-dm](screenshots/2-directories-dm.png)
-
+<img src="screenshots/2-directories-dm.png" width="200" />
 <br/>
 
 ### Movies:
-![movies-dm](screenshots/3-movies-dm.png)
+<img src="screenshots/3-movies-dm.png" width="200" />
 
 ## To get started execute the following command:
 
