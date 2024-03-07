@@ -1,0 +1,6 @@
+lanflix
+nodownload
+ttfb
+omdb
+metascore
+imdb
