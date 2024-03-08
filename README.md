@@ -49,5 +49,5 @@ yarn run docker-up
 - [ ] support subtitles
 - [x] better support for mobile (with hamburger menu) (wip - lots to add)
 - [ ] editable directories and files
-- [ ] spellcheck (cspell)
+- [x] spellcheck (cspell)
 - [ ] add support for additional formats
