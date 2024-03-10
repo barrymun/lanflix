@@ -15,7 +15,8 @@ RUN mkdir -p /usr/src/server
 WORKDIR /usr/src/server
 COPY server/. /usr/src/server/
 
-RUN yarn install --production --frozen-lockfile
+RUN yarn install
+# RUN yarn install --production --frozen-lockfile
 
 RUN yarn build
 
