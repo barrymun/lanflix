@@ -15,7 +15,7 @@ RUN mkdir -p /usr/src/client
 WORKDIR /usr/src/client
 COPY client/. /usr/src/client/
 
-RUN yarn install
+RUN yarn install --production --frozen-lockfile
 
 RUN yarn build
 
